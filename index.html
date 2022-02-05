@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue 3 Tutorial</title>
+    <style>
+        body{
+            background: rgb(67, 67, 67);
+        }
+        p, h3, ul{
+            padding: 0;
+            margin: 0;
+        }
+        img{
+            border-radius: 10px;
+        }
+        li{
+            list-style-type: none;
+            background: rgb(102, 102, 102);
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .box{
+            padding: 100px 0;
+            width :400px;
+            text-align:center;
+            background-color: #ddd;
+            margin: 20px;
+            display: inline-block;
+        }
+        .fav{
+            background: rgb(253, 225, 152);
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
 </head>
+
 <body>
     <h1>Hello Vue!</h1>
+    <div id="app">
+        <!-- vue components go here.. -->
+        <div v-if="showBooks">
+        <h2>This is a template</h2>
+        <br>
+        
+        <!-- LOOPS -->
+        <h2>Loops</h2>
+        <ul>
+            <li v-for="book in books" :class="{fav: book.isFav}">
+                <img :src="book.img" width="190" alt="">
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.author }}</p>
+                <button @click="toggleFav($event, book)">Toggle Favourite</button>
+            </li>
+        </ul>
+        <br>
+        <p>Counter: {{ counter }}</p>
+        </div>
+
+        <!-- EVENTS & CONDITIONALS -->
+        <h2>EVENTS & CONDITIONALS</h2>
+        <button v-on:click="toggleShowBooks()">
+            <span v-if="showBooks">Hide Books</span>
+            <span v-else>Show Books</span>
+        </button>
+        <button v-on:click="counter++">Increase Counter</button>
+        <button @click="counter--">Decrease Counter</button>
+        <button @click="changeTitle()">Change Title</button>
+
+        <div v-show="showBooks">Currently showing books</div>
+
+        <br>
+        <div class="box" @mouseover="handleEvent($event)">Mouse Over</div>
+        <div class="box" @mouseleave="handleEvent($event)">Mouse Leave</div>
+        <div class="box" @dblclick="handleEvent($event)">Mouse Double Click</div>
+        <div class="box" @mousemove="handleMouseMove">
+            <span v-if="!x && !y">Mouse Move</span>
+            <span v-else>X: {{ x }}, Y: {{ y }}</span>
+        </div>
+        <br>
+
+        <h2>Attribute Binding</h2>
+        <a :href="url" target="_blank">Attribute Binding</a>
+        <br>
+
+        <h2>Computed Properties</h2>
+        <p>Computed Properties are properties that depend on other data attributes and will update when these data attributes are changed</p>
+        <h3>Filtered Books:</h3>
+        <ul>
+            <li v-for="book in filteredBooks" :class="{fav: book.isFav}">
+                <img :src="book.img" width="190" alt="">
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.author }}</p>
+                <button @click="toggleFav($event, book)">Toggle Favourite</button>
+            </li>
+        </ul>
+    </div>
+
+
+    <script src="app.js"></script>
 </body>
+
 </html>
